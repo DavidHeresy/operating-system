@@ -1,2 +1,3 @@
-# pcos
-Personal computer operating system
+# PC:OS
+
+*Personal Computer Operating System.*
