@@ -1,0 +1,13 @@
+#!/bin/sh
+
+NAME="PC"
+TYPE="Linux_64"
+FIRMWARE="bios"
+
+CPUS=2
+RAM=2048
+VRAM=16
+
+DISK="$NAME.vdi"
+SIZE=5120
+

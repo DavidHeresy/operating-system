@@ -1,0 +1,73 @@
+#!/bin/sh
+
+
+# -- VARIABLES --
+
+ROOT=$(git rev-parse --show-toplevel)
+. $ROOT/vm/specs
+
+
+# -- CREATE VM --
+
+echo "\nCreate virtual machine $NAME."
+
+vboxmanage createvm \
+    --name $NAME \
+    --ostype $TYPE \
+    --register
+
+vboxmanage modifyvm $NAME \
+    --firmware $FIRMWARE \
+    --cpus $CPUS \
+    --memory $RAM \
+    --vram $VRAM \
+    --graphicscontroller VMSVGA
+
+vboxmanage storagectl $NAME \
+    --name "SATA controller" \
+    --add sata \
+    --bootable on
+
+
+# -- ADD DISK --
+
+echo "\nAdd disk $DISK for $NAME."
+
+vboxmanage createhd \
+    --filename $DISK \
+    --size $SIZE \
+    --variant standard
+
+vboxmanage storageattach $NAME \
+    --storagectl "SATA controller" \
+    --port 0 \
+    --device 0 \
+    --type hdd \
+    --medium $DISK
+
+
+# -- ADD IMAGE --
+
+echo "\nAdd image.iso to $NAME."
+
+vboxmanage storageattach $NAME \
+    --storagectl "SATA controller" \
+    --port 1 \
+    --device 0 \
+    --type dvddrive \
+    --medium $ROOT/image.iso
+
+
+# -- MOUSE CAPTURE --
+
+echo "\nDisable mouse capture."
+
+vboxmanage setextradata $NAME GUI/MouseCapturePolicy Disabled
+
+
+# -- INFO FILE --
+
+echo "\nCreate info file."
+	
+vboxmanage showvminfo $NAME > $ROOT/$NAME.info
+

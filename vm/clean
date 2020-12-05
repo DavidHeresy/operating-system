@@ -1,0 +1,22 @@
+#!/bin/sh
+
+
+# -- VARIABLES --
+
+ROOT=$(git rev-parse --show-toplevel)
+. $ROOT/vm/specs
+
+
+# -- DELETE VM --
+
+echo "Delete vm $NAME."
+
+vboxmanage unregistervm --delete $NAME
+
+
+# -- DELETE DISK --
+
+echo "Delete disk $DISK."
+
+vboxmanage closemedium disk $DISK --delete
+
