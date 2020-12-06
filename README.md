@@ -29,6 +29,12 @@ Create the vm:
 make build
 ```
 
+Print info about the vm:
+
+```bash
+make info
+```
+
 Start the vm:
 
 ```bash
@@ -46,3 +52,14 @@ Delete the vm:
 ```bash
 make clean
 ```
+
+## Install the Base System
+
+1. Boot into the live image and login.
+2. Make sure you have an internet connection (`ping google.com`).
+3. Change to `root` with `sudo su`
+4. Install the OS:
+   ```bash
+   curl -LO https://raw.githubusercontent.com/DavidHeresy/pcos/main/install
+   sh install
+   ```
