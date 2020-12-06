@@ -9,5 +9,6 @@ RAM=2048
 VRAM=16
 
 DISK="$(git root)/vm/$NAME.vdi"
-SIZE=5120
+SIZE=40960
+SATA="SATA Controller"
 

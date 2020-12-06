@@ -6,16 +6,21 @@
 . $(git root)/vm/specs
 
 
+# -- DELETE DISK --
+
+echo "Delete disk $DISK."
+
+vboxmanage storageattach $NAME \
+    --storagectl "$SATA" \
+    --port 0 --device 0 \
+    --medium none
+
+vboxmanage closemedium disk $DISK --delete
+
+
 # -- DELETE VM --
 
 echo "Delete vm $NAME."
 
 vboxmanage unregistervm --delete $NAME
-
-
-# -- DELETE DISK --
-
-echo "Delete disk $DISK."
-
-vboxmanage closemedium disk $DISK --delete
 

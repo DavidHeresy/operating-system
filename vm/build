@@ -23,7 +23,7 @@ vboxmanage modifyvm $NAME \
     --graphicscontroller VMSVGA
 
 vboxmanage storagectl $NAME \
-    --name "SATA controller" \
+    --name "$SATA" \
     --add sata \
     --bootable on
 
@@ -38,7 +38,7 @@ vboxmanage createhd \
     --variant standard
 
 vboxmanage storageattach $NAME \
-    --storagectl "SATA controller" \
+    --storagectl "$SATA" \
     --port 0 \
     --device 0 \
     --type hdd \
@@ -50,7 +50,7 @@ vboxmanage storageattach $NAME \
 echo "\nAdd image.iso to $NAME."
 
 vboxmanage storageattach $NAME \
-    --storagectl "SATA controller" \
+    --storagectl "$SATA" \
     --port 1 \
     --device 0 \
     --type dvddrive \
