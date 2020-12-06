@@ -84,19 +84,19 @@ echo -e "Partition /dev/$device"
 fdisk /dev/$device << FDISK_CMDS
 g
 n
-1
+
 
 +$BOOT_SIZE
 n
-2
+
 
 +$ROOT_SIZE
 n
-3
+
 
 +$SWAP_SIZE
 n
-4
+
 
 
 FDISK_CMDS
