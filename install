@@ -4,6 +4,10 @@
 
 KEYBOARD="de-latin1-nodeadkeys"
 
+BOOT_PART_END="100MiB"
+ROOT_PART_END="20GiB"
+SWAP_PART_END="24GiB"
+
 
 # -- SET KEYBOARD LAYOUT --
 
@@ -76,3 +80,10 @@ done
 # -- PARTITION THE DISK --
 
 echo -e "Partition /dev/$device"
+
+parted mkpart primary ext4 1MiB $BOOT_PART_END
+parted set 1 boot on
+parted mkpart primary ext4 $BOOT_PART_END $ROOT_PART_END
+parted mkpart primary linux-swap $ROOT_PART_END $SWAP_PART_END
+parted mkpart primary ext4 $SWAP_PART_END 100%
+
