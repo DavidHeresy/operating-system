@@ -1,0 +1,6 @@
+#!/bin/sh
+
+. $(git root)/vm/specs
+
+vboxmanage showvminfo $NAME
+

@@ -26,3 +26,7 @@ start:
 stop:
 	vm/stop
 
+.PHONY: info
+info:
+	vm/info
+
