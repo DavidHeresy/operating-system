@@ -153,7 +153,7 @@ fstabgen -U /mnt >> /mnt/etc/fstab
 
 ## CHROOT ##
 
-artools-chroot /mnt
+cat << EOF | artools-chroot /mnt
 
 
 ## SYSTEM CLOCK ##
@@ -196,3 +196,4 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 passwd
 
+EOF
