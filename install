@@ -76,8 +76,6 @@ done
 dd if=/dev/zero of/dev/$device bs=512 count=1
 
 
-
-
 # -- PARTITION THE DISK --
 
 echo -e "Partition /dev/$device"
@@ -107,11 +105,12 @@ FDISK_CMDS
 # -- FILE SYSTEMS --
 
 mkfs.ext4 -L BOOT "/dev/$device""1"
-mkfs.ext4 -L ROOT "/dev/$device""3"
-mkfs.ext4 -L HOME "/dev/$device""4"
 
 mkswap -L SWAP "/dev/$device""2"
 swapon "/dev/disk/by-label/SWAP"
+
+mkfs.ext4 -L ROOT "/dev/$device""3"
+mkfs.ext4 -L HOME "/dev/$device""4"
 
 
 # -- MOUNT PARTITIONS --
