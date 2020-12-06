@@ -189,3 +189,8 @@ echo "127.0.1.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
 grub-install --target=i386-pc /dev/$disk
 grub-mkconfig -o /boot/grub/grub.cfg
 
+
+## PASSWORD ##
+
+passwd
+
