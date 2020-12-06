@@ -11,10 +11,7 @@ KEYMAP="de-latin1-nodeadkeys"
 TIMEZONE="Europe/Berlin"
 LANG="de_DE.UTF-8"
 
-# -- SET KEYBOARD LAYOUT --
 
-echo -e "\nKeyboard layout: $KEYBOARD"
-sudo loadkeys $KEYBOARD
 
 ## CHECK FIRMWARE ##
 
@@ -24,7 +21,12 @@ if [[ $(ls /sys/firmware/efi/efivars > /dev/null 2>&1) ]]; then
 fi
 
 
-# -- SHOW DISKS --
+## SET KEYBOARD LAYOUT ##
+
+loadkeys $KEYMAP
+
+
+## SHOW DISKS ##
 
 echo -e "\nBlock devices:"
 lsblk
