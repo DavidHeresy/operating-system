@@ -16,13 +16,11 @@ LANG="de_DE.UTF-8"
 echo -e "\nKeyboard layout: $KEYBOARD"
 sudo loadkeys $KEYBOARD
 
-
-# -- CHECK FIRMWARE --
+## CHECK FIRMWARE ##
 
 if [[ $(ls /sys/firmware/efi/efivars > /dev/null 2>&1) ]]; then
-    echo -e "\nFirmware: UEFI"
-else
-    echo -e "\nFirmware: BIOS"
+    echo -e "\nUEFI firmware is not supported."
+    exit
 fi
 
 
