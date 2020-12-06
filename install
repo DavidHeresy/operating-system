@@ -4,9 +4,14 @@
 
 KEYBOARD="de-latin1-nodeadkeys"
 
+BOOT_PART=1
+SWAP_PART=2
+ROOT_PART=3
+HOME_PART=4
+
 BOOT_SIZE="100MiB"
-ROOT_SIZE="20GiB"
 SWAP_SIZE="4GiB"
+ROOT_SIZE="20GiB"
 
 
 # -- SET KEYBOARD LAYOUT --
@@ -67,7 +72,7 @@ done
 
 while true
 do
-    read -p "Are you sure you want to use /dev/$device? (y/N) " answer
+    read -p "Are you sure you want to partition /dev/$device? (y/N) " answer
 
     case $answer in
         [yY]* ) break;;
@@ -84,19 +89,19 @@ echo -e "Partition /dev/$device"
 fdisk /dev/$device << FDISK_CMDS
 g
 n
-
+$BOOT_PART
 
 +$BOOT_SIZE
 n
-
+$SWAP_PART
 
 +$SWAP_SIZE
 n
-
+$ROOT_PART
 
 +$ROOT_SIZE
 n
-
+$HOME_PART
 
 
 w
