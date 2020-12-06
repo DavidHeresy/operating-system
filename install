@@ -76,9 +76,9 @@ do
     esac
 done
 
-# -- SHRED THE DISK --
+# -- CLEAN THE DISK --
 
-shred -n 1 -vz "/dev/$device"
+dd if=/dev/zero of/dev/$device bs=512 count=1
 
 
 # -- PARTITIONS --
