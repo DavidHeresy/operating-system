@@ -11,6 +11,7 @@ KEYMAP="de-latin1-nodeadkeys"
 TIMEZONE="Europe/Berlin"
 LANG="de_DE.UTF-8"
 
+HOSTNAME="PC"
 
 
 ## CHECK FIRMWARE ##
@@ -169,3 +170,15 @@ echo "LANG=$LANG" > /etc/locale.conf
 ## KEYMAP ##
 
 echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
+
+
+## HOSTNAME ##
+
+echo "$HOSTNAME" > /etc/hostname
+
+
+## HOSTS ##
+
+echo "127.0.0.1 localhost" >> /etc/hosts
+echo "::1       localhost" >> /etc/hosts
+echo "127.0.1.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
