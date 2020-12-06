@@ -210,3 +210,9 @@ passwd $USER
 ln -s /etc/runit/sv/connmand /etc/runit/runsvdir/default
 
 EOF
+
+
+## UNMOUNT AND REBOOT ##
+
+umount -R /mnt
+reboot
