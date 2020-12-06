@@ -59,6 +59,20 @@ do
 done
 
 
+# -- CONFIRMATION --
+
+while true
+do
+    read -p "Are you sure you want to use /dev/$device? (y/N) " answer
+
+    case $answer in
+        [yY]* ) break;;
+        [nN]* ) exit;;
+        * ) continue;;
+    esac
+done
+
+
 # -- PARTITION THE DISK --
 
 echo -e "Partition /dev/$device"
