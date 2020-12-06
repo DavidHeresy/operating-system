@@ -81,9 +81,23 @@ done
 
 echo -e "Partition /dev/$device"
 
-parted mkpart primary ext4 1MiB $BOOT_PART_END
-parted set 1 boot on
-parted mkpart primary ext4 $BOOT_PART_END $ROOT_PART_END
-parted mkpart primary linux-swap $ROOT_PART_END $SWAP_PART_END
-parted mkpart primary ext4 $SWAP_PART_END 100%
+fdisk /dev/$device << FDISK_CMDS
+g
+n
+
+1MiB
++$BOOT_SIZE
+n
+2
+
++$ROOT_SIZE
+n
+3
+
++$SWAP_SIZE
+n
+4
+
+
+FDISK_CMDS
 
