@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# -- CONFIG --
+
+KEYBOARD="de-latin1-nodeadkeys"
+
+
+# -- SET KEYBOARD LAYOUT --
+
+echo -e "\nKeyboard layout: $KEYBOARD"
+sudo loadkeys $KEYBOARD
+
+
+# -- CHECK FIRMWARE --
+
+if [[ $(ls /sys/firmware/efi/efivars > /dev/null 2>&1) ]]; then
+    echo -e "\nFirmware: UEFI"
+else
+    echo -e "\nFirmware: BIOS"
+fi
+
+
+# -- SET SYSTEM CLOCK --
+
+timedatectl set-ntp true
+
+
+# -- SHOW DISKS --
+
+echo -e "\nBlock devices:"
+lsblk
+
+
+# -- SELECT DISK --
+
+echo -e "\n"
+
+while true
+do
+    read -p "Enter target block device (e.g. sda): " device
+
+    if [[ ${#device} -ne 3 ]]; then
+        echo -e "Please enter a device from the list."
+        continue
+    fi
+
+    if [[ $device != sd* ]]; then
+        echo -e "Please enter a device from the list."
+        continue
+    fi
+
+    check=$(lsblk | grep $device)
+    if [[ -z "${check// }" ]]; then 
+        echo -e "Please enter a device from the list."
+        continue
+    fi
+
+    break
+done
+
+
+# -- PARTITION THE DISK --
+
+echo -e "Partition /dev/$device"
