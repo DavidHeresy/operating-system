@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 # -- CONFIG --
 
 KEYBOARD="de-latin1-nodeadkeys"
@@ -132,4 +133,9 @@ basestrap /mnt base base-devel runit elogind-runit
 # -- INSTALL LINUX KERNEL --
 
 basestrap /mnt linux linux-firmware
+
+
+# -- GENERATE FSTAB --
+
+fstabgen -U /mnt >> /mnt/etc/fstab
 
