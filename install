@@ -24,11 +24,6 @@ else
 fi
 
 
-# -- SET SYSTEM CLOCK --
-
-timedatectl set-ntp true
-
-
 # -- SHOW DISKS --
 
 echo -e "\nBlock devices:"
