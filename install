@@ -157,3 +157,11 @@ artools-chroot /mnt
 
 ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 hwclock --systohc
+
+
+## LOCALIZATION ##
+
+echo "$LANG UTF-8" >> /etc/locale.gen
+locale-gen
+echo "LANG=$LANG" > /etc/locale.conf
+
