@@ -122,4 +122,6 @@ mkfs.ext4 "/dev/$ROOT_PART"
 mkfs.ext4 "/dev/$HOME_PART"
 
 mkswap "/dev/$SWAP_PART"
+swapon "/dev/$SWAP_PART"
+
 
