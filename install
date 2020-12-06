@@ -141,7 +141,7 @@ basestrap /mnt \
     base base-devel \
     runit elogind-runit \
     linux linux-firmware \
-    grub \
+    grub amd-ucode intel-ucode \
 
 
 ## FSTAB ##
