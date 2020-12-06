@@ -85,7 +85,6 @@ fdisk /dev/$device << FDISK_CMDS
 g
 n
 
-1MiB
 +$BOOT_SIZE
 n
 2
