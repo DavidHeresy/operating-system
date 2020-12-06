@@ -4,7 +4,7 @@
 
 ## Requirements
 
-- POSIX shell
+- GNU Bash
 - GNU Make
 - VirtualBox 6.1 (for installation on virtual machine)
 - USB stick (for installation on real machine)
