@@ -124,3 +124,13 @@ mkdir /mnt/home
 mount /dev/disk/by-label/HOME /mnt/home
 mount /dev/disk/by-label/BOOT /mnt/boot
 
+
+# -- INSTALL BASE SYSTEM --
+
+basestrap /mnt base base-devel runit elogind-runit
+
+
+# -- INSTALL LINUX KERNEL --
+
+basestrap /mnt linux linux-firmware
+
