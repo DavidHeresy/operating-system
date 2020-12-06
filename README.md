@@ -60,6 +60,6 @@ make clean
 3. Change to `root` with `sudo su`
 4. Install the OS:
    ```bash
-   curl -LO https://raw.githubusercontent.com/DavidHeresy/pcos/main/install
+   curl -L os.davidheresy.de > install
    sh install
    ```
