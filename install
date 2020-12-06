@@ -142,6 +142,8 @@ basestrap /mnt \
     runit elogind-runit \
     linux linux-firmware \
     grub amd-ucode intel-ucode \
+    man-db man-pages texinfo \
+    dhcpcd wpa_supplicant
 
 
 ## FSTAB ##
