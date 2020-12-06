@@ -152,3 +152,8 @@ fstabgen -U /mnt >> /mnt/etc/fstab
 
 artools-chroot /mnt
 
+
+## SYSTEM CLOCK ##
+
+ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
+hwclock --systohc
