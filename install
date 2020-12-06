@@ -90,14 +90,15 @@ n
 n
 
 
-+$ROOT_SIZE
-n
-
-
 +$SWAP_SIZE
 n
 
 
++$ROOT_SIZE
+n
 
+
+
+w
 FDISK_CMDS
 
