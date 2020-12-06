@@ -143,10 +143,10 @@ basestrap /mnt \
     grub \
 
 
-
-
-
-# -- GENERATE FSTAB --
+## FSTAB ##
 
 fstabgen -U /mnt >> /mnt/etc/fstab
+
+
+
 
