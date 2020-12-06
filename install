@@ -84,6 +84,7 @@ echo -e "Partition /dev/$device"
 fdisk /dev/$device << FDISK_CMDS
 g
 n
+1
 
 +$BOOT_SIZE
 n
