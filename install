@@ -125,3 +125,7 @@ mkswap "/dev/$SWAP_PART"
 swapon "/dev/$SWAP_PART"
 
 
+# -- MOUNT PARTITIONS --
+
+mount /dev/$ROOT_PART /mnt
+
