@@ -134,14 +134,16 @@ mount $home_part /mnt/home
 mount $boot_part /mnt/boot
 
 
-# -- INSTALL BASE SYSTEM --
+## INSTALL BASE SYSTEM ##
 
-basestrap /mnt base base-devel runit elogind-runit
+basestrap /mnt \
+    base base-devel \
+    runit elogind-runit \
+    linux linux-firmware \
+    grub \
 
 
-# -- INSTALL LINUX KERNEL --
 
-basestrap /mnt linux linux-firmware
 
 
 # -- GENERATE FSTAB --
