@@ -107,3 +107,12 @@ $HOME_PART
 w
 FDISK_CMDS
 
+
+# -- FILE SYSTEMS --
+
+mkfs.ext4 "/dev/$device$BOOT_PART"
+mkfs.ext4 "/dev/$device$ROOT_PART"
+mkfs.ext4 "/dev/$device$HOME_PART"
+
+mkswap "/dev/$device$SWAP_PART"
+
