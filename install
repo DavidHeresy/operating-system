@@ -76,12 +76,6 @@ done
 dd if=/dev/zero of/dev/$device bs=512 count=1
 
 
-# -- PARTITIONS --
-
-BOOT_PART="$device""1"
-SWAP_PART="$device""2"
-ROOT_PART="$device""3"
-HOME_PART="$device""4"
 
 
 # -- PARTITION THE DISK --
@@ -112,15 +106,15 @@ FDISK_CMDS
 
 # -- FILE SYSTEMS --
 
-mkfs.ext4 "/dev/$BOOT_PART"
-mkfs.ext4 "/dev/$ROOT_PART"
-mkfs.ext4 "/dev/$HOME_PART"
+mkfs.ext4 -L BOOT "/dev/$device""1"
+mkfs.ext4 -L ROOT "/dev/$device""3"
+mkfs.ext4 -L HOME "/dev/$device""4"
 
-mkswap "/dev/$SWAP_PART"
-swapon "/dev/$SWAP_PART"
+mkswap -L SWAP "/dev/$device""2"
+swapon "/dev/disk/by-label/SWAP"
 
 
 # -- MOUNT PARTITIONS --
 
-mount /dev/$ROOT_PART /mnt
+mount /dev/disk/by-label/ROOT /mnt
 
