@@ -88,7 +88,7 @@ HOME_PART="$device""4"
 
 echo -e "Partition /dev/$device"
 
-fdisk /dev/$device << FDISK_CMDS
+fdisk -w always /dev/$device << FDISK_CMDS
 g
 n
 
