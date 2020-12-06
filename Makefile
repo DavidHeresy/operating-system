@@ -1,10 +1,12 @@
-# -- ISO IMAGE --
+# -- IMAGE --
 
-download:
-	wget \
-		-c https://iso.artixlinux.org/iso/artix-base-runit-20201128-x86_64.iso \
-		-O image.iso
+.PHONY: load
+load:
+	image/load
 
+.PHONY: burn
+burn:
+	image/burn
 
 # -- VIRTUAL MACHINE --
 
