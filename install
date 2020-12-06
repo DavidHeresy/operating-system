@@ -118,3 +118,9 @@ swapon "/dev/disk/by-label/SWAP"
 
 mount /dev/disk/by-label/ROOT /mnt
 
+mkdir /mnt/boot
+mkdir /mnt/home
+
+mount /dev/disk/by-label/HOME /mnt/home
+mount /dev/disk/by-label/BOOT /mnt/boot
+
