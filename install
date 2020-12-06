@@ -165,3 +165,7 @@ echo "$LANG UTF-8" >> /etc/locale.gen
 locale-gen
 echo "LANG=$LANG" > /etc/locale.conf
 
+
+## KEYMAP ##
+
+echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
