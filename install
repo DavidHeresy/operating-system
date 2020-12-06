@@ -81,6 +81,10 @@ do
     esac
 done
 
+# -- SHRED THE DISK --
+
+shred -n 1 -vz "/dev/$device"
+
 
 # -- PARTITION THE DISK --
 
