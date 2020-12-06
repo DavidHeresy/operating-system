@@ -4,7 +4,10 @@
 
 ## Requirements
 
+- POSIX shell
+- GNU Make
 - VirtualBox 6.1 (for installation on virtual machine)
+- USB stick (for installation on real machine)
 
 ## Get the ISO
 
