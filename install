@@ -1,14 +1,15 @@
 #!/bin/bash
 
 
-# -- CONFIG --
+## CONFIG ##
 
-KEYBOARD="de-latin1-nodeadkeys"
-
-BOOT_SIZE="100MiB"
+BOOT_SIZE="200MiB"
 SWAP_SIZE="4GiB"
 ROOT_SIZE="20GiB"
 
+KEYMAP="de-latin1-nodeadkeys"
+TIMEZONE="Europe/Berlin"
+LANG="de_DE.UTF-8"
 
 # -- SET KEYBOARD LAYOUT --
 
