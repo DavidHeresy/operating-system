@@ -4,11 +4,6 @@
 
 KEYBOARD="de-latin1-nodeadkeys"
 
-BOOT_PART=1
-SWAP_PART=2
-ROOT_PART=3
-HOME_PART=4
-
 BOOT_SIZE="100MiB"
 SWAP_SIZE="4GiB"
 ROOT_SIZE="20GiB"
@@ -86,6 +81,14 @@ done
 shred -n 1 -vz "/dev/$device"
 
 
+# -- PARTITIONS --
+
+BOOT_PART="$device""1"
+SWAP_PART="$device""2"
+ROOT_PART="$device""3"
+HOME_PART="$device""4"
+
+
 # -- PARTITION THE DISK --
 
 echo -e "Partition /dev/$device"
@@ -93,19 +96,19 @@ echo -e "Partition /dev/$device"
 fdisk /dev/$device << FDISK_CMDS
 g
 n
-$BOOT_PART
+
 
 +$BOOT_SIZE
 n
-$SWAP_PART
+
 
 +$SWAP_SIZE
 n
-$ROOT_PART
+
 
 +$ROOT_SIZE
 n
-$HOME_PART
+
 
 
 w
@@ -114,9 +117,9 @@ FDISK_CMDS
 
 # -- FILE SYSTEMS --
 
-mkfs.ext4 "/dev/$device$BOOT_PART"
-mkfs.ext4 "/dev/$device$ROOT_PART"
-mkfs.ext4 "/dev/$device$HOME_PART"
+mkfs.ext4 "/dev/$BOOT_PART"
+mkfs.ext4 "/dev/$ROOT_PART"
+mkfs.ext4 "/dev/$HOME_PART"
 
-mkswap "/dev/$device$SWAP_PART"
+mkswap "/dev/$SWAP_PART"
 
