@@ -12,6 +12,7 @@ TIMEZONE="Europe/Berlin"
 LANG="de_DE.UTF-8"
 
 HOSTNAME="PC"
+USER="david"
 
 
 ## CHECK FIRMWARE ##
@@ -196,6 +197,12 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ## PASSWORD ##
 
 passwd
+
+
+## USER ##
+
+useradd -m $USER
+passwd $USER
 
 
 ## NETWORK ##
