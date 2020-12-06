@@ -8,7 +8,8 @@ load:
 burn:
 	image/burn
 
-# -- VIRTUAL MACHINE --
+
+# -- VM --
 
 .PHONY: build
 build:

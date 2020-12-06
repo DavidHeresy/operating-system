@@ -3,8 +3,7 @@
 
 # -- VARIABLES --
 
-ROOT=$(git rev-parse --show-toplevel)
-. $ROOT/vm/specs
+. $(git root)/vm/specs
 
 
 # -- CREATE VM --
@@ -55,7 +54,7 @@ vboxmanage storageattach $NAME \
     --port 1 \
     --device 0 \
     --type dvddrive \
-    --medium $ROOT/image.iso
+    --medium $(git root)/image.iso
 
 
 # -- MOUSE CAPTURE --
@@ -63,11 +62,4 @@ vboxmanage storageattach $NAME \
 echo "\nDisable mouse capture."
 
 vboxmanage setextradata $NAME GUI/MouseCapturePolicy Disabled
-
-
-# -- INFO FILE --
-
-echo "\nCreate info file."
-	
-vboxmanage showvminfo $NAME > $ROOT/$NAME.info
 

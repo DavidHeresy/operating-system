@@ -1,7 +1,5 @@
 #!/bin/sh
 
-ROOT=$(git rev-parse --show-toplevel)
-
-. $ROOT/vm/specs
+. $(git root)/vm/specs
 
 vboxmanage startvm $NAME --type gui

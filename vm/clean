@@ -3,8 +3,7 @@
 
 # -- VARIABLES --
 
-ROOT=$(git rev-parse --show-toplevel)
-. $ROOT/vm/specs
+. $(git root)/vm/specs
 
 
 # -- DELETE VM --

@@ -8,6 +8,6 @@ CPUS=2
 RAM=2048
 VRAM=16
 
-DISK="$NAME.vdi"
+DISK="$(git root)/vm/$NAME.vdi"
 SIZE=5120
 
