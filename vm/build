@@ -54,7 +54,7 @@ vboxmanage storageattach $NAME \
     --port 1 \
     --device 0 \
     --type dvddrive \
-    --medium $(git root)/image.iso
+    --medium $(git root)/iso/image.iso
 
 
 # -- MOUSE CAPTURE --
