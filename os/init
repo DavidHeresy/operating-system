@@ -1,21 +1,16 @@
 #!/bin/bash
 
+# -- CONFIG --
 
-## CONFIG ##
+BASE_URL="https://raw.githubusercontent.com/DavidHeresy/pcos/main/os"
 
-BOOT_SIZE="200MiB"
-SWAP_SIZE="4GiB"
-ROOT_SIZE="20GiB"
+curl "$BASE_URL/main" > main
+curl "$BASE_URL/config" > config
 
-KEYMAP="de-latin1-nodeadkeys"
-TIMEZONE="Europe/Berlin"
-LANG="de_DE.UTF-8"
-
-HOSTNAME="PC"
-USER="david"
+. ./config
 
 
-## CHECK FIRMWARE ##
+# -- CHECK FIRMWARE --
 
 if [[ $(ls /sys/firmware/efi/efivars > /dev/null 2>&1) ]]; then
     echo -e "\nUEFI firmware is not supported."
@@ -23,18 +18,18 @@ if [[ $(ls /sys/firmware/efi/efivars > /dev/null 2>&1) ]]; then
 fi
 
 
-## SET KEYBOARD LAYOUT ##
+# -- SET KEYBOARD LAYOUT --
 
 loadkeys $KEYMAP
 
 
-## SHOW DISKS ##
+# -- SHOW DISKS --
 
 echo -e "\nBlock devices:"
 lsblk
 
 
-## SELECT DISK ##
+# -- SELECT DISK --
 
 echo -e "\n"
 
@@ -62,7 +57,7 @@ do
 done
 
 
-## CONFIRMATION ##
+# -- CONFIRMATION --
 
 while true
 do
@@ -76,12 +71,12 @@ do
 done
 
 
-## CLEAN THE DISK ##
+# -- CLEAN THE DISK --
 
 dd if=/dev/zero of/dev/$disk bs=512 count=1
 
 
-## CREATE PARTITIONS ##
+# -- CREATE PARTITIONS --
 
 echo -e "Partition /dev/$disk"
 
@@ -107,7 +102,7 @@ w
 FDISK_CMDS
 
 
-## PARTITIONS ##
+# -- PARTITIONS --
 
 boot_part="/dev/$disk""1"
 swap_part="/dev/$disk""2"
@@ -115,7 +110,7 @@ root_part="/dev/$disk""3"
 home_part="/dev/$disk""4"
 
 
-## FILE SYSTEMS ##
+# -- FILE SYSTEMS --
 
 mkfs.ext4 $boot_part
 mkfs.ext4 $root_part
@@ -125,7 +120,7 @@ mkswap $swap_part
 swapon $swap_part
 
 
-## MOUNT PARTITIONS ##
+# -- MOUNT PARTITIONS --
 
 mount $root_part /mnt
 
@@ -136,7 +131,7 @@ mount $home_part /mnt/home
 mount $boot_part /mnt/boot
 
 
-## INSTALL BASE SYSTEM ##
+# -- INSTALL BASE SYSTEM --
 
 basestrap /mnt \
     base base-devel \
@@ -148,71 +143,17 @@ basestrap /mnt \
     connman-runit connman-gtk
 
 
-## FSTAB ##
+# -- FSTAB --
 
 fstabgen -U /mnt >> /mnt/etc/fstab
 
 
-## CHROOT ##
+# -- CHROOT --
 
-cat << EOF | artools-chroot /mnt
-
-
-## SYSTEM CLOCK ##
-
-ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
-hwclock --systohc
+artools-chroot /mnt ./main
 
 
-## LOCALIZATION ##
-
-echo "$LANG UTF-8" >> /etc/locale.gen
-locale-gen
-echo "LANG=$LANG" > /etc/locale.conf
-
-
-## KEYMAP ##
-
-echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
-
-
-## HOSTNAME ##
-
-echo "$HOSTNAME" > /etc/hostname
-
-
-## HOSTS ##
-
-echo "127.0.0.1 localhost" >> /etc/hosts
-echo "::1       localhost" >> /etc/hosts
-echo "127.0.1.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
-
-
-## BOOT LOADER ##
-
-grub-install --target=i386-pc /dev/$disk
-grub-mkconfig -o /boot/grub/grub.cfg
-
-
-## PASSWORD ##
-
-passwd
-
-
-## USER ##
-
-useradd -m $USER
-passwd $USER
-
-
-## NETWORK ##
-
-ln -s /etc/runit/sv/connmand /etc/runit/runsvdir/default
-
-EOF
-
-
-## UNMOUNT AND REBOOT ##
+# -- UNMOUNT AND REBOOT --
 
 umount -R /mnt
 reboot
