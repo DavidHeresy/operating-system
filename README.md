@@ -46,3 +46,25 @@ Configure the specs of the virtual machine in [/vm/specs](./vm/specs).
    curl -L os.davidheresy.de > install
    sh install
    ```
+
+## TODO
+
+- [ ] Verify PGP signature of downloaded iso.
+- [ ] Modulize install script.
+- [ ] Setup wifi and bluetooth daemon.
+- [ ] Setup zsh.
+- [ ] Setup X.
+- [ ] Setup awesome wm.
+- [ ] Setup pulseaudio.
+- [ ] Setup alacritty.
+- [ ] Setup neovim.
+- [ ] Setup Brave.
+- [ ] Setup mutt-wizard.
+- [ ] Setup newsboat.
+- [ ] Setup IRC client.
+- [ ] Setup kdenlive, blender, audacity, gimp, inkscape, lmms.
+- [ ] Drop down terminal.
+- [ ] Starship prompt.
+- [ ] Fuzzy finder fzf.
+- [ ] Ripgrep-all rga.
+- [ ] Color scheme.
