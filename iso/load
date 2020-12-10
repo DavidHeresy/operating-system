@@ -1,5 +1,5 @@
 #!/bin/sh
 
 url=https://iso.artixlinux.org/iso/artix-base-runit-20201128-x86_64.iso
-wget -c $url -O $(git root)/image.iso
+wget -c $url -O $(git root)/iso/image.iso
 
