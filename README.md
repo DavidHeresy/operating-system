@@ -20,7 +20,8 @@ make load
 ```
 
 Burn the ISO on a USB stick.
-**MAKE SURE TO INPUT THE CORRECT DISK!**
+
+**WARNING: Make sure to input the correct disk!**
 
 ```bash
 make burn
