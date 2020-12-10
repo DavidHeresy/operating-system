@@ -23,7 +23,7 @@ Burn the ISO on a USB stick.
 **MAKE SURE TO INPUT THE CORRECT DISK!**
 
 ```bash
-make bur
+make burn
 ```
 
 ## Setup the VM
