@@ -150,7 +150,59 @@ fstabgen -U /mnt >> /mnt/etc/fstab
 
 # -- CHROOT --
 
-artools-chroot /mnt ./main
+alias chroot="artools-chroot /mnt"
+
+
+# -- SYSTEM CLOCK --
+
+chroot ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
+chroot hwclock --systohc
+
+
+# -- LOCALIZATION --
+
+chroot echo "$LANG UTF-8" >> /etc/locale.gen
+chroot locale-gen
+chroot echo "LANG=$LANG" > /etc/locale.conf
+
+
+# -- KEYMAP --
+
+chroot echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
+
+
+# -- HOSTNAME --
+
+chroot echo "$HOSTNAME" > /etc/hostname
+
+
+# -- HOSTS --
+
+chroot echo "127.0.0.1 localhost" >> /etc/hosts
+chroot echo "::1       localhost" >> /etc/hosts
+chroot echo "127.0.1.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
+
+
+# -- BOOT LOADER --
+
+chroot grub-install --target=i386-pc /dev/$disk
+chroot grub-mkconfig -o /boot/grub/grub.cfg
+
+
+# -- PASSWORD --
+
+chroot passwd
+
+
+# -- USER --
+
+chroot useradd -m $USER
+chroot passwd $USER
+
+
+# -- NETWORK --
+
+chroot ln -s /etc/runit/sv/connmand /etc/runit/runsvdir/default
 
 
 # -- UNMOUNT AND REBOOT --

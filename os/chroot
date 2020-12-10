@@ -8,54 +8,20 @@ curl "$BASE_URL/config" > config
 . ./config
 
 
-# -- SYSTEM CLOCK --
-
-ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
-hwclock --systohc
 
 
-# -- LOCALIZATION --
-
-echo "$LANG UTF-8" >> /etc/locale.gen
-locale-gen
-echo "LANG=$LANG" > /etc/locale.conf
 
 
-# -- KEYMAP --
-
-echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
 
 
-# -- HOSTNAME --
-
-echo "$HOSTNAME" > /etc/hostname
 
 
-# -- HOSTS --
-
-echo "127.0.0.1 localhost" >> /etc/hosts
-echo "::1       localhost" >> /etc/hosts
-echo "127.0.1.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
 
 
-# -- BOOT LOADER --
-
-grub-install --target=i386-pc /dev/$disk
-grub-mkconfig -o /boot/grub/grub.cfg
 
 
-# -- PASSWORD --
-
-passwd
 
 
-# -- USER --
-
-useradd -m $USER
-passwd $USER
 
 
-# -- NETWORK --
-
-ln -s /etc/runit/sv/connmand /etc/runit/runsvdir/default
 
