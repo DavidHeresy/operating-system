@@ -16,42 +16,25 @@
 Download the Artix ISO as `image.iso`:
 
 ```bash
-make download
+make load
+```
+
+Burn the ISO on a USB stick.
+**MAKE SURE TO INPUT THE CORRECT DISK!**
+
+```bash
+make bur
 ```
 
 ## Setup the VM
 
-Configure the specs in [/vm/specs](./vm/specs)
+Configure the specs of the virtual machine in [/vm/specs](./vm/specs).
 
-Create the vm:
-
-```bash
-make build
-```
-
-Print info about the vm:
-
-```bash
-make info
-```
-
-Start the vm:
-
-```bash
-make start
-```
-
-Stop the vm:
-
-```bash
-make stop
-```
-
-Delete the vm:
-
-```bash
-make clean
-```
+- `make build` - Create the VM.
+- `make info` - Print info about the VM.
+- `make start` - Start the VM.
+- `make stop` - Stop the VM.
+- `make clean` - Stop the VM.
 
 ## Install the Base System
 
