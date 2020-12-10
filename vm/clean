@@ -8,8 +8,6 @@
 
 # -- DELETE DISK --
 
-echo "Delete disk $DISK."
-
 vboxmanage storageattach $NAME \
     --storagectl "$SATA" \
     --port 0 --device 0 \
@@ -19,8 +17,6 @@ vboxmanage closemedium disk $DISK --delete
 
 
 # -- DELETE VM --
-
-echo "Delete vm $NAME."
 
 vboxmanage unregistervm --delete $NAME
 

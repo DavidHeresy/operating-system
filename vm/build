@@ -8,8 +8,6 @@
 
 # -- CREATE VM --
 
-echo "\nCreate virtual machine $NAME."
-
 vboxmanage createvm \
     --name $NAME \
     --ostype $TYPE \
@@ -30,8 +28,6 @@ vboxmanage storagectl $NAME \
 
 # -- ADD DISK --
 
-echo "\nAdd disk $DISK for $NAME."
-
 vboxmanage createhd \
     --filename $DISK \
     --size $SIZE \
@@ -47,8 +43,6 @@ vboxmanage storageattach $NAME \
 
 # -- ADD IMAGE --
 
-echo "\nAdd image.iso to $NAME."
-
 vboxmanage storageattach $NAME \
     --storagectl "$SATA" \
     --port 1 \
@@ -58,8 +52,6 @@ vboxmanage storageattach $NAME \
 
 
 # -- MOUSE CAPTURE --
-
-echo "\nDisable mouse capture."
 
 vboxmanage setextradata $NAME GUI/MouseCapturePolicy Disabled
 
