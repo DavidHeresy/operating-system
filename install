@@ -1,13 +1,18 @@
 #!/bin/bash
 
+
 # -- CONFIG --
 
-BASE_URL="https://raw.githubusercontent.com/DavidHeresy/pcos/main/os"
+BOOT_SIZE="200MiB"
+SWAP_SIZE="4GiB"
+ROOT_SIZE="20GiB"
 
-curl "$BASE_URL/main" > main
-curl "$BASE_URL/config" > config
+KEYMAP="de-latin1-nodeadkeys"
+TIMEZONE="Europe/Berlin"
+LANG="de_DE.UTF-8"
 
-. ./config
+HOSTNAME="PC"
+USER="david"
 
 
 # -- CHECK FIRMWARE --
@@ -21,6 +26,11 @@ fi
 # -- SET KEYBOARD LAYOUT --
 
 loadkeys $KEYMAP
+
+
+# -- INSTALL PARTED --
+
+pacman -S parted
 
 
 # -- SHOW DISKS --
@@ -80,8 +90,16 @@ dd if=/dev/zero of/dev/$disk bs=512 count=1
 
 echo -e "Partition /dev/$disk"
 
+# TODO: Replace with parted.
 fdisk -w always /dev/$disk << FDISK_CMDS
 g
+n
+
+
++1MiB
+t
+1
+EF02
 n
 
 
@@ -104,10 +122,10 @@ FDISK_CMDS
 
 # -- PARTITIONS --
 
-boot_part="/dev/$disk""1"
-swap_part="/dev/$disk""2"
-root_part="/dev/$disk""3"
-home_part="/dev/$disk""4"
+boot_part="/dev/$disk""2"
+swap_part="/dev/$disk""3"
+root_part="/dev/$disk""4"
+home_part="/dev/$disk""5"
 
 
 # -- FILE SYSTEMS --
