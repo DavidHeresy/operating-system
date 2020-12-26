@@ -68,4 +68,5 @@ Configure the specs of the virtual machine in [/vm/specs](./vm/specs).
 - [ ] Starship prompt.
 - [ ] Fuzzy finder fzf.
 - [ ] Ripgrep-all rga.
+- [ ] Rofi launcher.
 - [ ] Color scheme.
