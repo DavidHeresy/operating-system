@@ -88,36 +88,13 @@ dd if=/dev/zero of/dev/$disk bs=512 count=1
 
 # -- CREATE PARTITIONS --
 
-echo -e "Partition /dev/$disk"
+echo ", 4MiB, 21686148-6449-6E6F-744E-656564454649, *" | \
+    sfdisk --lable gpt /dev/$disk
 
-# TODO: Replace with parted.
-fdisk -w always /dev/$disk << FDISK_CMDS
-g
-n
-
-
-+1MiB
-t
-1
-EF02
-n
-
-
-+$BOOT_SIZE
-n
-
-
-+$SWAP_SIZE
-n
-
-
-+$ROOT_SIZE
-n
-
-
-
-w
-FDISK_CMDS
+echo ", $BOOT_SIZE"     | sfdisk --append /dev/$disk
+echo ", $SWAP_SIZE, S"  | sfdisk --append /dev/$disk
+echo ", $ROOT_SIZE"     | sfdisk --append /dev/$disk
+echo ","                | sfdisk --append /dev/$disk
 
 
 # -- PARTITIONS --
