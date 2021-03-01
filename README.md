@@ -1,6 +1,6 @@
-# PC:OS
+# Operating System
 
-*Personal Computer Operating System.*
+*Customized for personal use.*
 
 ## Requirements
 
@@ -9,7 +9,6 @@
 - VirtualBox 6.1 (for installation on virtual machine)
 - USB stick (for installation on real machine)
 - Git alias `git root` ([`git config --global alias.root 'rev-parse --show-toplevel'`](https://stackoverflow.com/a/957978))
-
 
 ## Get the ISO
 
