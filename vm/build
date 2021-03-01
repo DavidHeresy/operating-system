@@ -1,9 +1,11 @@
 #!/bin/sh
 
+root=$(git root) &&
+
 
 # -- SPECS --
 
-. $(git root)/vm/specs
+. $root/vm/specs &&
 
 
 # -- CREATE VM --
@@ -11,19 +13,19 @@
 vboxmanage createvm \
     --name $NAME \
     --ostype $TYPE \
-    --register
+    --register &&
 
 vboxmanage modifyvm $NAME \
     --firmware $FIRMWARE \
     --cpus $CPUS \
     --memory $RAM \
     --vram $VRAM \
-    --graphicscontroller VMSVGA
+    --graphicscontroller VMSVGA &&
 
 vboxmanage storagectl $NAME \
     --name "$SATA" \
     --add sata \
-    --bootable on
+    --bootable on &&
 
 
 # -- ADD DISK --
@@ -31,14 +33,14 @@ vboxmanage storagectl $NAME \
 vboxmanage createhd \
     --filename $DISK \
     --size $SIZE \
-    --variant standard
+    --variant standard &&
 
 vboxmanage storageattach $NAME \
     --storagectl "$SATA" \
     --port 0 \
     --device 0 \
     --type hdd \
-    --medium $DISK
+    --medium $DISK &&
 
 
 # -- ADD IMAGE --
@@ -48,7 +50,7 @@ vboxmanage storageattach $NAME \
     --port 1 \
     --device 0 \
     --type dvddrive \
-    --medium $(git root)/iso/image.iso
+    --medium $root/image.iso &&
 
 
 # -- MOUSE CAPTURE --
