@@ -38,7 +38,7 @@ lsblk &&
 
 # -- SELECT DISK --
 
-echo -e "\n" &&
+echo -e "\n"
 
 while true
 do
