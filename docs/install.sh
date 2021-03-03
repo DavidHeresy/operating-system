@@ -3,6 +3,8 @@
 
 # -- CONFIG --
 
+# TODO: Ask for confirmation of these values or enter new ones.
+
 BOOT_SIZE="200MiB"
 SWAP_SIZE="4GiB"
 ROOT_SIZE="20GiB"
