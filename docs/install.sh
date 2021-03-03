@@ -28,11 +28,6 @@ fi
 loadkeys $KEYMAP &&
 
 
-# -- INSTALL PARTED --
-
-pacman -S parted &&
-
-
 # -- SHOW DISKS --
 
 echo -e "\nBlock devices:" &&
