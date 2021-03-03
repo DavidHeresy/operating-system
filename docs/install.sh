@@ -19,29 +19,29 @@ USER="david"
 
 if [[ $(ls /sys/firmware/efi/efivars > /dev/null 2>&1) ]]; then
     echo -e "\nUEFI firmware is not supported."
-    exit
+    exit 1
 fi
 
 
 # -- SET KEYBOARD LAYOUT --
 
-loadkeys $KEYMAP
+loadkeys $KEYMAP &&
 
 
 # -- INSTALL PARTED --
 
-pacman -S parted
+pacman -S parted &&
 
 
 # -- SHOW DISKS --
 
-echo -e "\nBlock devices:"
-lsblk
+echo -e "\nBlock devices:" &&
+lsblk &&
 
 
 # -- SELECT DISK --
 
-echo -e "\n"
+echo -e "\n" &&
 
 while true
 do
@@ -83,47 +83,47 @@ done
 
 # -- CLEAN THE DISK --
 
-dd if=/dev/zero of/dev/$disk bs=512 count=1
+dd if=/dev/zero of/dev/$disk bs=512 count=1 &&
 
 
 # -- CREATE PARTITIONS --
 
 echo ", 4MiB, 21686148-6449-6E6F-744E-656564454649, *" | \
-    sfdisk --lable gpt /dev/$disk
+    sfdisk --lable gpt /dev/$disk &&
 
-echo ", $BOOT_SIZE"     | sfdisk --append /dev/$disk
-echo ", $SWAP_SIZE, S"  | sfdisk --append /dev/$disk
-echo ", $ROOT_SIZE"     | sfdisk --append /dev/$disk
-echo ","                | sfdisk --append /dev/$disk
+echo ", $BOOT_SIZE"     | sfdisk --append /dev/$disk &&
+echo ", $SWAP_SIZE, S"  | sfdisk --append /dev/$disk &&
+echo ", $ROOT_SIZE"     | sfdisk --append /dev/$disk &&
+echo ","                | sfdisk --append /dev/$disk &&
 
 
 # -- PARTITIONS --
 
-boot_part="/dev/$disk""2"
-swap_part="/dev/$disk""3"
-root_part="/dev/$disk""4"
-home_part="/dev/$disk""5"
+boot_part="/dev/$disk""2" &&
+swap_part="/dev/$disk""3" &&
+root_part="/dev/$disk""4" &&
+home_part="/dev/$disk""5" &&
 
 
 # -- FILE SYSTEMS --
 
-mkfs.ext4 $boot_part
-mkfs.ext4 $root_part
-mkfs.ext4 $home_part
+mkfs.ext4 $boot_part &&
+mkfs.ext4 $root_part &&
+mkfs.ext4 $home_part &&
 
-mkswap $swap_part
-swapon $swap_part
+mkswap $swap_part &&
+swapon $swap_part &&
 
 
 # -- MOUNT PARTITIONS --
 
-mount $root_part /mnt
+mount $root_part /mnt &&
 
-mkdir /mnt/boot
-mkdir /mnt/home
+mkdir /mnt/boot &&
+mkdir /mnt/home &&
 
-mount $home_part /mnt/home
-mount $boot_part /mnt/boot
+mount $home_part /mnt/home &&
+mount $boot_part /mnt/boot &&
 
 
 # -- INSTALL BASE SYSTEM --
@@ -135,72 +135,72 @@ basestrap /mnt \
     grub amd-ucode intel-ucode \
     man-db man-pages texinfo \
     dhcpcd wpa_supplicant \
-    connman-runit connman-gtk
+    connman-runit connman-gtk &&
 
 
 # -- FSTAB --
 
-fstabgen -U /mnt >> /mnt/etc/fstab
+fstabgen -U /mnt >> /mnt/etc/fstab &&
 
 
 # -- CHROOT --
 
-alias chroot="artools-chroot /mnt"
+alias cr="artools-chroot /mnt" &&
 
 
 # -- SYSTEM CLOCK --
 
-chroot ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
-chroot hwclock --systohc
+cr ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime &&
+cr hwclock --systohc &&
 
 
 # -- LOCALIZATION --
 
-chroot echo "$LANG UTF-8" >> /etc/locale.gen
-chroot locale-gen
-chroot echo "LANG=$LANG" > /etc/locale.conf
+cr echo "$LANG UTF-8" >> /etc/locale.gen &&
+cr locale-gen &&
+cr echo "LANG=$LANG" > /etc/locale.conf &&
 
 
 # -- KEYMAP --
 
-chroot echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
+cr echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf &&
 
 
 # -- HOSTNAME --
 
-chroot echo "$HOSTNAME" > /etc/hostname
+cr echo "$HOSTNAME" > /etc/hostname &&
 
 
 # -- HOSTS --
 
-chroot echo "127.0.0.1 localhost" >> /etc/hosts
-chroot echo "::1       localhost" >> /etc/hosts
-chroot echo "127.0.1.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
+cr echo "127.0.0.1 localhost" >> /etc/hosts &&
+cr echo "::1       localhost" >> /etc/hosts &&
+cr echo "127.0.1.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts &&
 
 
 # -- BOOT LOADER --
 
-chroot grub-install --target=i386-pc /dev/$disk
-chroot grub-mkconfig -o /boot/grub/grub.cfg
+cr grub-install --target=i386-pc /dev/$disk &&
+cr grub-mkconfig -o /boot/grub/grub.cfg &&
 
 
 # -- PASSWORD --
 
-chroot passwd
+cr passwd &&
 
 
 # -- USER --
 
-chroot useradd -m $USER
-chroot passwd $USER
+cr useradd -m $USER &&
+cr passwd $USER &&
 
 
 # -- NETWORK --
 
-chroot ln -s /etc/runit/sv/connmand /etc/runit/runsvdir/default
+cr ln -s /etc/runit/sv/connmand /etc/runit/runsvdir/default &&
 
 
 # -- UNMOUNT AND REBOOT --
 
-# umount -R /mnt
-# reboot
+umount -R /mnt &&
+reboot
