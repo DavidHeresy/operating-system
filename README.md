@@ -43,6 +43,7 @@ Configure the specs of the virtual machine in [/vm/specs](./vm/specs).
 3. Change to `root` with `sudo su`
 4. Install the OS:
    ```bash
+   su
    curl -L davidheresy.de/os/install.sh > install.sh
    bash install.sh
    ```
