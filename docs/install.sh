@@ -80,7 +80,7 @@ done
 
 # -- CLEAN THE DISK --
 
-dd if=/dev/zero of/dev/$disk bs=512 count=1 &&
+dd if=/dev/zero of=/dev/$disk bs=512 count=1 &&
 
 
 # -- CREATE PARTITIONS --
