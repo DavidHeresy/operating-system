@@ -85,9 +85,7 @@ dd if=/dev/zero of=/dev/$disk bs=512 count=1 &&
 
 # -- CREATE PARTITIONS --
 
-echo ", 4MiB, 21686148-6449-6E6F-744E-656564454649, *" | \
-    sfdisk --lable gpt /dev/$disk &&
-
+echo ", 4MiB, 21686148-6449-6E6F-744E-656564454649, *" | sfdisk /dev/$disk &&
 echo ", $BOOT_SIZE"     | sfdisk --append /dev/$disk &&
 echo ", $SWAP_SIZE, S"  | sfdisk --append /dev/$disk &&
 echo ", $ROOT_SIZE"     | sfdisk --append /dev/$disk &&
