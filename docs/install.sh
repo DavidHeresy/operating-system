@@ -85,11 +85,19 @@ dd if=/dev/zero of=/dev/$disk bs=512 count=1 &&
 
 # -- CREATE PARTITIONS --
 
-echo ", 4MiB, 21686148-6449-6E6F-744E-656564454649, *" | sfdisk /dev/$disk &&
-echo ", $BOOT_SIZE"     | sfdisk --append /dev/$disk &&
-echo ", $SWAP_SIZE, S"  | sfdisk --append /dev/$disk &&
-echo ", $ROOT_SIZE"     | sfdisk --append /dev/$disk &&
-echo ","                | sfdisk --append /dev/$disk &&
+# echo ", 4MiB, 21686148-6449-6E6F-744E-656564454649, *" | sfdisk /dev/$disk &&
+# echo ", $BOOT_SIZE"     | sfdisk --append /dev/$disk &&
+# echo ", $SWAP_SIZE, S"  | sfdisk --append /dev/$disk &&
+# echo ", $ROOT_SIZE"     | sfdisk --append /dev/$disk &&
+# echo ","                | sfdisk --append /dev/$disk &&
+
+sfdisk -X gpt /dev/sda <<PARTITION_TABLE
+,4MiB,21686148-6449-6E6F-744E-656564454649
+,$BOOT_SIZE
+,$SWAP_SIZE,S
+,$ROOT_SIZE
+,,E6D6D379-F507-44C2-A23C-238F2A3DF928
+PARTITION_TABLE
 
 
 # -- PARTITIONS --
