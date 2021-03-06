@@ -30,11 +30,6 @@ if [[ $(ls /sys/firmware/efi/efivars > /dev/null 2>&1) ]]; then
 fi
 
 
-# -- SET KEYBOARD LAYOUT --
-
-loadkeys $KEYMAP &&
-
-
 # -- SHOW DISKS --
 
 echo -e "\nBlock devices:" &&
