@@ -1,0 +1,18 @@
+#!/bin/sh
+
+root=$(git root) &&
+
+
+# -- SPECS --
+
+. $root/vm/specs &&
+
+
+# -- EJECT --
+
+vboxmanage storageattach $NAME \
+    --storagectl "$SATA" \
+    --port 1 \
+    --device 0 \
+    --type dvddrive \
+    --medium none
