@@ -3,7 +3,7 @@
 
 # -- STRICT MODE --
 
-# set -euo pipefail
+set -euo pipefail
 
 
 # -- CONFIG --
