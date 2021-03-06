@@ -148,59 +148,63 @@ fstabgen -U /mnt >> /mnt/etc/fstab &&
 
 # -- CHROOT --
 
-# alias artools-chroot /mnt="artools-chroot /mnt" &&
+artools-chroot /mnt <<CHROOT_ENVIRONMENT
+# -- STRICT MODE --
+
+set -euo pipefail
 
 
 # -- SYSTEM CLOCK --
 
-artools-chroot /mnt ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime &&
-artools-chroot /mnt hwclock --systohc &&
+ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
+hwclock --systohc
 
 
 # -- LOCALIZATION --
 
-artools-chroot /mnt echo "$LANG UTF-8" >> /etc/locale.gen &&
-artools-chroot /mnt locale-gen &&
-artools-chroot /mnt echo "LANG=$LANG" > /etc/locale.conf &&
+echo "$LANG UTF-8" >> /etc/locale.gen
+locale-gen
+echo "LANG=$LANG" > /etc/locale.conf
 
 
 # -- KEYMAP --
 
-artools-chroot /mnt echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf &&
+echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
 
 
 # -- HOSTNAME --
 
-artools-chroot /mnt echo "$HOSTNAME" > /etc/hostname &&
+echo "$HOSTNAME" > /etc/hostname
 
 
 # -- HOSTS --
 
-artools-chroot /mnt echo "127.0.0.1 localhost" >> /etc/hosts &&
-artools-chroot /mnt echo "::1       localhost" >> /etc/hosts &&
-artools-chroot /mnt echo "127.0.1.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts &&
+echo "127.0.0.1 localhost" >> /etc/hosts
+echo "::1       localhost" >> /etc/hosts
+echo "127.0.1.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
 
 
 # -- BOOT LOADER --
 
-artools-chroot /mnt grub-install --target=i386-pc /dev/$disk &&
-artools-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg &&
+grub-install --target=i386-pc /dev/$disk
+grub-mkconfig -o /boot/grub/grub.cfg
 
 
 # -- PASSWORD --
 
-artools-chroot /mnt passwd &&
+passwd
 
 
 # -- USER --
 
-artools-chroot /mnt useradd -m $USER &&
-artools-chroot /mnt passwd $USER &&
+useradd -m $USER
+passwd $USER
 
 
 # -- NETWORK --
 
-artools-chroot /mnt ln -s /etc/runit/sv/connmand /etc/runit/runsvdir/default &&
+ln -s /etc/runit/sv/connmand /etc/runit/runsvdir/default
+CHROOT_ENVIRONMENT
 
 
 # -- UNMOUNT AND REBOOT --
