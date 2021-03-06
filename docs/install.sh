@@ -187,18 +187,18 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # -- NETWORK --
 
 ln -s /etc/runit/sv/connmand /etc/runit/runsvdir/default
-CHROOT_ENVIRONMENT
-
-
-# -- ROOT PASSWORD --
-
-artools-chroot /mnt passwd
 
 
 # -- USER --
 
-artools-chroot /mnt useradd -m $USER
-artools-chroot /mnt passwd $USER
+useradd -m $USER
+CHROOT_ENVIRONMENT
+
+
+# -- PASSWORDS --
+
+artools-chroot /mnt passwd &&
+artools-chroot /mnt passwd $USER &&
 
 
 # -- UNMOUNT AND REBOOT --
