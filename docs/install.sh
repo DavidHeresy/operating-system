@@ -85,7 +85,7 @@ dd if=/dev/zero of=/dev/$disk bs=512 count=1
 
 # -- CREATE BIOS/GPT/LVM PARTITIONS --
 
-sfdisk -X gpt /dev/sda <<PARTITION_TABLE
+sfdisk -X gpt --force /dev/sda <<PARTITION_TABLE
 ,4MiB,21686148-6449-6E6F-744E-656564454649
 ,$BOOT_SIZE
 ,$SWAP_SIZE,S
