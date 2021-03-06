@@ -145,7 +145,7 @@ fstabgen -U /mnt >> /mnt/etc/fstab
 artools-chroot /mnt <<CHROOT_ENVIRONMENT
 # -- STRICT MODE --
 
-set -euo pipefail
+# set -euo pipefail
 
 
 # -- SYSTEM CLOCK --
