@@ -1,6 +1,11 @@
 #!/bin/bash
 
 
+# -- STRICT MODE --
+
+set -euo pipefail
+
+
 # -- CONFIG --
 
 # TODO: Ask for confirmation of these values or enter new ones.
