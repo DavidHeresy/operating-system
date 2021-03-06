@@ -145,7 +145,7 @@ fstabgen -U /mnt >> /mnt/etc/fstab
 artools-chroot /mnt <<CHROOT_ENVIRONMENT
 # -- STRICT MODE --
 
-# set -euo pipefail
+set -euo pipefail
 
 
 # -- SYSTEM CLOCK --
@@ -186,19 +186,19 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 # -- NETWORK --
 
-ln -s /etc/runit/sv/connmand /etc/runit/runsvdir/default
+# ln -s /etc/runit/sv/connmand /etc/runit/runsvdir/default
 
 
 # -- USER --
 
-useradd -m $USER
+# useradd -m $USER
 CHROOT_ENVIRONMENT
 
 
 # -- PASSWORDS --
 
 artools-chroot /mnt passwd &&
-artools-chroot /mnt passwd $USER &&
+# artools-chroot /mnt passwd $USER &&
 
 
 # -- UNMOUNT AND REBOOT --
