@@ -31,3 +31,7 @@ stop:
 info:
 	vm/info
 
+.PHONY: info
+eject:
+	vm/eject
+
