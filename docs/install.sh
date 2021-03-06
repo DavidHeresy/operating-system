@@ -32,8 +32,8 @@ fi
 
 # -- SHOW DISKS --
 
-echo -e "\nBlock devices:" &&
-lsblk &&
+echo -e "\nBlock devices:"
+lsblk
 
 
 # -- SELECT DISK --
@@ -80,16 +80,10 @@ done
 
 # -- CLEAN THE DISK --
 
-dd if=/dev/zero of=/dev/$disk bs=512 count=1 &&
+dd if=/dev/zero of=/dev/$disk bs=512 count=1
 
 
-# -- CREATE PARTITIONS --
-
-# echo ", 4MiB, 21686148-6449-6E6F-744E-656564454649, *" | sfdisk /dev/$disk &&
-# echo ", $BOOT_SIZE"     | sfdisk --append /dev/$disk &&
-# echo ", $SWAP_SIZE, S"  | sfdisk --append /dev/$disk &&
-# echo ", $ROOT_SIZE"     | sfdisk --append /dev/$disk &&
-# echo ","                | sfdisk --append /dev/$disk &&
+# -- CREATE BIOS/GPT/LVM PARTITIONS --
 
 sfdisk -X gpt /dev/sda <<PARTITION_TABLE
 ,4MiB,21686148-6449-6E6F-744E-656564454649
@@ -102,31 +96,31 @@ PARTITION_TABLE
 
 # -- PARTITIONS --
 
-boot_part="/dev/$disk""2" &&
-swap_part="/dev/$disk""3" &&
-root_part="/dev/$disk""4" &&
-home_part="/dev/$disk""5" &&
+boot_part="/dev/$disk""2"
+swap_part="/dev/$disk""3"
+root_part="/dev/$disk""4"
+home_part="/dev/$disk""5"
 
 
 # -- FILE SYSTEMS --
 
-mkfs.ext4 $boot_part &&
-mkfs.ext4 $root_part &&
-mkfs.ext4 $home_part &&
+mkfs.ext4 $boot_part
+mkfs.ext4 $root_part
+mkfs.ext4 $home_part
 
-mkswap $swap_part &&
-swapon $swap_part &&
+mkswap $swap_part
+swapon $swap_part
 
 
 # -- MOUNT PARTITIONS --
 
-mount $root_part /mnt &&
+mount $root_part /mnt
 
-mkdir /mnt/boot &&
-mkdir /mnt/home &&
+mkdir /mnt/boot
+mkdir /mnt/home
 
-mount $home_part /mnt/home &&
-mount $boot_part /mnt/boot &&
+mount $home_part /mnt/home
+mount $boot_part /mnt/boot
 
 
 # -- INSTALL BASE SYSTEM --
@@ -138,12 +132,12 @@ basestrap /mnt \
     grub amd-ucode intel-ucode \
     man-db man-pages texinfo \
     dhcpcd wpa_supplicant \
-    connman-runit connman-gtk &&
+    connman-runit connman-gtk
 
 
 # -- FSTAB --
 
-fstabgen -U /mnt >> /mnt/etc/fstab &&
+fstabgen -U /mnt >> /mnt/etc/fstab
 
 
 # -- CHROOT --
@@ -209,5 +203,6 @@ CHROOT_ENVIRONMENT
 
 # -- UNMOUNT AND REBOOT --
 
-umount -R /mnt &&
-reboot
+umount -R /mnt
+shutdown -h now
+
